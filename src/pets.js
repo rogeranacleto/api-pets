@@ -1,4 +1,4 @@
-import randomUUID from "crypto"
+import { randomUUID } from "crypto";
 export const pets = [
   {
     id: randomUUID(),
@@ -6,6 +6,7 @@ export const pets = [
     breed: "SRD",
     age: 15,
     ownerName: "Roger",
+    registration: true,
   },
   {
     id: randomUUID(),
@@ -13,6 +14,7 @@ export const pets = [
     breed: "Pinscher",
     age: 8,
     ownerName: "Carina",
+    registration: true,
   },
   {
     id: randomUUID(),
@@ -20,6 +22,7 @@ export const pets = [
     breed: "Pitbull",
     age: 10,
     ownerName: "Noe",
+    registration: true,
   },
   {
     id: randomUUID(),
@@ -27,6 +30,7 @@ export const pets = [
     breed: "Pug",
     age: 3,
     ownerName: "Clara",
+    registration: true,
   },
   {
     id: randomUUID(),
@@ -34,6 +38,7 @@ export const pets = [
     breed: "Golden Retriever",
     age: 8,
     ownerName: "Regis",
+    registration: true,
   },
   {
     id: randomUUID(),
@@ -41,5 +46,6 @@ export const pets = [
     breed: "Chihuahua",
     age: 15,
     ownerName: "Eliana",
+    registration: true,
   },
 ];
