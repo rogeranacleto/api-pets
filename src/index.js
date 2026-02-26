@@ -2,34 +2,20 @@ import express from "express";
 import { randomUUID } from "crypto";
 import * as dotenv from "dotenv";
 import { pets } from "./pets.js";
-import { validateFieldsPost } from "./middlewares.js";
-import { validateFieldsPut } from "./middlewares.js";
+import { validateFieldsPost, validateFieldsPut } from "./middlewares.js";
+import  cors  from "cors";
 const app = express();
 app.use(express());
 app.use(express.json())
 dotenv.config();
+app.use(cors())
 
 app.get("/pets", (req, res) => {
     try{
-        const { name, breed, age, ownerName } = req.query;
-        let data = pets;
-        if (name) {
-            data = data.filter((item) => item.name === name);
-        }
-        if (breed) {
-            data = data.filter((item) => item.breed === breed);
-        }
-        if (age) {
-            data = data.filter((item) => item.age === age);
-        }
-        if (ownerName) {
-            data = data.filter((item) => item.ownerName === ownerName);
-        }
-
-        return res.status(200).send({
+        res.status(200).send({
             ok: true,
             message: "Pets listados com sucesso.",
-            data
+            data: pets
         })
 
     }catch(error){
@@ -140,16 +126,16 @@ app.patch("/pets/:id", (req, res) => {
 app.delete("/pets/:id", (req, res) => {
     try{
         const { id } = req.params;
-        const pet = pets.find((item) => item.id === id);
-        if (!pet) {
+        const petIndex = pets.findIndex((item) => item.id === id)
+        if(petIndex < 0){
             return res.status(404).send({
-            ok: false,
-            message: "Pet nao encontrado, verifique e tente novamente",
-            });
+                ok: false,
+                message: "Pet nao existe na lista de pets"
+            })
         }
 
-        const petIndex = pets.indexOf((item) => item.id === id)
         pets.splice(petIndex, 1);
+
         res.status(200).send({
             ok: true,
             message: "Pet deletado com sucesso da lista",
